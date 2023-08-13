@@ -24,6 +24,7 @@ public class User {
     @Column(unique = true)
     private String name;
     private String password;
+    private Integer age;
     @CreationTimestamp
     private LocalDateTime createdTime;
     @UpdateTimestamp

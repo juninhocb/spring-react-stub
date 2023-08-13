@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -38,4 +39,11 @@ public class UserResource {
                 .toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @GetMapping
+    public ResponseEntity<Set<UserDto>> getAllUsers(){
+        return ResponseEntity.ok()
+                .body(userService.findAllUsers());
+    }
+
 }

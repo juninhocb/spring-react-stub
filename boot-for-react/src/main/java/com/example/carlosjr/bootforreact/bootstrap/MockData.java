@@ -15,7 +15,8 @@ public class MockData implements CommandLineRunner {
 
         UserDto userDto = UserDto.builder()
                 .name("admin")
-                .password("password")
+                .password("test")
+                .age(25)
                 .build();
         userService.createNewUser(userDto);
 
