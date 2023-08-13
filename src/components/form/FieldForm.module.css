@@ -1,0 +1,19 @@
+.fieldForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.fieldForm label{
+    text-align: left;
+    font-weight: bold;
+}
+
+.fieldForm input{
+    padding: .7em;
+    border-radius: 0;
+    border: none;
+}
+
+.fieldForm input::placeholder{
+    color: #7B7B7B;
+}
