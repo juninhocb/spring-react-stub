@@ -10,7 +10,7 @@ public interface UserService {
     Set<UserDto> findAllUsers();
     Integer createNewUser(UserDto userDto);
     void updateUser(UserDto userDto);
-    void deleteUser(String name);
+    void deleteUser(Integer id);
     Boolean validateAnUser(UserDto userDto);
 
 }

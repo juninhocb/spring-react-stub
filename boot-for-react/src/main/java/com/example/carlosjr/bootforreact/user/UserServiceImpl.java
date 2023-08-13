@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,8 +34,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer createNewUser(UserDto userDto) {
+        User userToPersist = userMapper.dtoToEntity(userDto);
+        if (userDto.age() == null){
+            Random ageGen = new Random();
+            int age = ageGen.nextInt(31) + 15;
+            userToPersist.setAge(age);
+        }
         User persistedUser = userRepository
-                .save(userMapper.dtoToEntity(userDto));
+                .save(userToPersist);
         return persistedUser.getId();
     }
 
@@ -46,8 +53,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String name) {
-        User persistedUser = handleFind(name);
+    public void deleteUser(Integer id) {
+        User persistedUser = handleFind(id);
         userRepository.delete(persistedUser);
     }
 

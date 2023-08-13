@@ -14,7 +14,5 @@ public record UserDto(
         @NotBlank
         @Size(min = 3, max = 50)
         String password,
-        @NotNull
-        @Positive
         Integer age) {
 }

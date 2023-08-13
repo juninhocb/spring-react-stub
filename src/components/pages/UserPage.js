@@ -4,7 +4,12 @@ import Footer from "../commons/Footer";
 import Table from "../generic/Table";
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
+import SizedBox from "../styles/SizedBox";
+import ModalOkCancel from "../generic/ModalOkCancel";
 function UserPage(){
+
+    const [showModal, setShowModal] = useState(false);
+    const [userToDeleteId, setUserToDeleteId] = useState(null);
 
     const [data, setData] = useState([]);
     const columns = [
@@ -26,19 +31,56 @@ function UserPage(){
             });
     });
 
+    function handleEdit(e){
+        e.preventDefault();
+        window.alert("will edit!!!");
+    }
 
+    function handleRemove(e, userId){
+        e.preventDefault();
+        setUserToDeleteId(userId);
+        setShowModal(true);
+    }
 
+    function handleCloseModal() {
+        setShowModal(false);
+        setUserToDeleteId(null);
+    }
 
-
+    function handleOk(){
+        console.log(`http://localhost:8080/api/v1/user/${userToDeleteId}`);
+        if (userToDeleteId !== null) {
+            axios.delete(`http://localhost:8080/api/v1/user/${userToDeleteId}`)
+                .then((response) => {
+                    window.alert("Deleted user!");
+                })
+                .catch((error) => {
+                    window.alert("Error on deleting user!" + error);
+                })
+                .finally(() => {
+                    setShowModal(false);
+                    setUserToDeleteId(null);
+                });
+        }
+    }
 
     return (
         <div className="App">
             <NavBar/>
             <section className={styles.common}>
-                <p> Table of users </p>
-                <Table columns={columns} data={data} />
+                <SizedBox height="50px"/>
+                <Table columns={columns}
+                       data={data}
+                       handleEdit={handleEdit}
+                       handleRemove={handleRemove}
+                />
             </section>
             <Footer/>
+            {showModal && <ModalOkCancel
+                tittle="Delete User"
+                content="Are you sure that want delete this user?"
+                handleOk={handleOk}
+                onClose={handleCloseModal} />}
         </div>
     );
 }

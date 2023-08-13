@@ -46,4 +46,12 @@ public class UserResource {
                 .body(userService.findAllUsers());
     }
 
+    @DeleteMapping("/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUser(@PathVariable(name = "userId") Integer id){
+        userService.deleteUser(id);
+    }
+
+
+
 }
