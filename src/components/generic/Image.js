@@ -1,6 +1,7 @@
-function Image({image, alt}){
+
+function Image({image, alt, height}){
     return (
-        <img src={image} alt={alt} />
+        <img height={height} src={image} alt={alt} />
     )
 }
 export default Image

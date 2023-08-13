@@ -7,18 +7,22 @@ import SizedBox from "../styles/SizedBox";
 import { useState } from "react";
 import axios from 'axios';
 import LinkButton from "../generic/LinkButton";
+import { useNavigate } from "react-router-dom";
+
 
 function FormLogin(){
 
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    function handleLogin() {
+    const navigate = useNavigate();
+    function handleLogin(event) {
+        event.preventDefault();
         axios.post('http://localhost:8080/api/v1/user/login', {
             name: name,
             password: password
         })
             .then(response => {
-                window.alert("Login successful!");
+                navigate("/home");
             })
             .catch(error => {
                 window.alert("Login failed. Please try again.");

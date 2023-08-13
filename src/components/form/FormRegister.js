@@ -6,6 +6,7 @@ import SizedBox from "../styles/SizedBox";
 import Button from "../generic/Button";
 import { useState } from "react";
 import LinkButton from "../generic/LinkButton";
+import axios from "axios";
 
 function FormRegister(){
 
@@ -14,7 +15,18 @@ function FormRegister(){
     const[passwordConfirm, setPasswordConfirm] = useState();
 
     function handleRegister(){
-        window.alert("Test");
+        if (passwordConfirm === password){
+            axios.post("http://localhost:8080/api/v1/user", {
+                name: name,
+                password: password
+            }).then(response => {
+                window.alert("User successfully registered.");
+            }).catch(() =>{
+                window.alert("The user was not registered.");
+            });
+        }else {
+            window.alert("Password not match");
+        }
     }
     return (
         <div>
